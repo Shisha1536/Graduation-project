@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { BlockHeader } from "./components/header/header";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.body
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BlockHeader />
   </React.StrictMode>
 );
 
