@@ -1,0 +1,110 @@
+.main {
+    padding: 24px 60px 118px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 95px;
+}
+.section1 {
+    display: flex;
+    gap: 157px;
+    padding-top: 27px;
+    h1 {
+        font-family: Arbutus;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: 75px;
+        text-align: left;
+        margin: 18px 0 0 0;
+    }
+    p {
+        font-family: Inter;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+        margin: 0;
+    }
+    button {
+        margin-top: 70px;
+        border: none;
+        border-radius: 5px;
+        background: rgb(89, 112, 255);
+        width: 335px;
+        height: 59px;
+        left: 60px;
+        color: white;
+        font-family: Inter;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 27px;
+    
+    }
+}
+.section2 {
+    h2 {
+        margin-top: 0;
+        font-family: ABeeZee;
+        font-size: 45px;
+        font-weight: 400;
+        line-height: 53px;
+        margin-bottom: 71px;
+        text-align: left;
+    }
+}
+.section3 {
+    h2 {
+        margin-top: 0;
+        font-family: ABeeZee;
+        font-size: 45px;
+        font-weight: 400;
+        line-height: 53px;
+        text-align: left;
+    }
+}
+.blockTarif {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.level1 {
+    padding: 19px;
+}
+.beginner,
+.pro,
+.business {
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    justify-content: space-around;
+    height: 132px;
+    align-items: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+    h4 {
+        margin: 0;
+    }
+    p {
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+.beginner {
+    background: rgb(255, 182, 79);
+    img {
+        width: 92px;
+        height: 83px;
+    }
+}
+.pro {
+    background: rgb(124, 227, 225);
+}
+.business {
+    background: rgb(0, 0, 0);
+    color: white;
+    img {
+        width: 96px;
+        height: 80px;
+    }
+}

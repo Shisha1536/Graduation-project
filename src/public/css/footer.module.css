@@ -1,0 +1,19 @@
+.footer {
+    background: rgb(2, 148, 145);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    justify-content: space-between;
+    height: 137px;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+}
+.contacts,
+.contactBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}

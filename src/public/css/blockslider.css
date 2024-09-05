@@ -1,0 +1,27 @@
+.image-slider-container {
+    margin: 0 auto;
+    ul {
+        display: none !important;
+    }
+}
+.image-slider-container .slick-prev:before,
+.image-slider-container .slick-next:before {
+    color: black;
+}
+.block-slide {
+    height: 225px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    img {
+        width: 64px;
+        height: 64px;
+    }
+    p {
+        width: 359px;
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
