@@ -45,6 +45,7 @@
   },
   "proxy": "https://gateway.scan-interfax.ru",
   "devDependencies": {
-    "@types/react-slick": "^0.23.13"
+    "@types/react-slick": "^0.23.13",
+    "react-router-dom": "^6.26.1"
   }
 }

@@ -4,9 +4,6 @@ export function BlockFooter() {
     const colorText = {
         color: 'white'
     }
-    const marginText = {
-        marginBottom: '0'
-    }
     return (
         <footer className={style.footer}>
             <img src={process.env.PUBLIC_URL + '/logofooter.png'} alt="logo" width={141} height={141}/>

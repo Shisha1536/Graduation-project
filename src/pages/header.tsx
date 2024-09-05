@@ -1,5 +1,5 @@
 import style from "../public/css/header.module.css"
-
+import {  Link } from "react-router-dom";
 export function BlockHeader() {
     const pStyle = {
         background: 'rgb(2, 148, 145)',
@@ -35,9 +35,8 @@ export function BlockHeader() {
         <header className={style.header}>
             <img src={process.env.PUBLIC_URL + '/logoheader.png'} alt=""/>
             <nav className={style.blockNav}>
-                <a href="#">Главная</a>
-                <a href="#">Тарифы</a>
-                <a href="#">FAQ</a>
+                <Link to='/'>Главная</Link>
+                <Link to='/books'>Тарифы</Link>
             </nav>
             <Token />
         </header>
