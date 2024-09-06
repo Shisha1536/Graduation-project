@@ -1,29 +1,29 @@
 import BlockSlider from "./slider";
 import style from "../../public/css/main.module.css";
 
-export function BlockMain() {
-    //const newPost = {
-    //    login: "sf_student10",
-    //    password: "KHKfTXb"
-    //}
-    //fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
-    //    method: 'POST',
-    //    body: JSON.stringify(newPost),
-    //    headers: {
-    //        'Content-type': 'application/json; charset=UTF-8'
-    //    }
-    //})
-    //.then((response)=>response.json())
-    //.then((data)=>{console.log(data)})
+export function BlockHome() {
+    const newPost = {
+        login: "sf_student10",
+        password: "KHKfTXb"
+    }
+    fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
+        method: 'POST',
+        body: JSON.stringify(newPost),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    .then((response)=>response.json())
+    .then((data)=>{console.log(data)})
     return (
         <main className={style.main}>
-            <section className={style.section1}>
+                        <section className={style.section1}>
                 <div>
                     <h1>сервис по поиску публикаций о компании по его ИНН</h1>
                     <p>Комплексный анализ публикаций, получение данных в формате PDF на электронную почту.</p>
                     <button>Запросить данные</button>
                 </div>
-                <img src={process.env.PUBLIC_URL + '/23981.png'} alt="Picture"/>
+                <img src={process.env.PUBLIC_URL + '/23981.png'} alt=""/>
             </section>
             <section className={style.section2}>
                 <h2>Почему именно мы</h2>
@@ -56,7 +56,7 @@ export function BlockMain() {
                             <img src={process.env.PUBLIC_URL + '/darts.png'} alt="icon"/>
                         </div>
                         <div>
-                            
+
                         </div>
                     </div>
                     <div className={style.level1}>
@@ -68,7 +68,7 @@ export function BlockMain() {
                             <img src={process.env.PUBLIC_URL + '/pc.png'} alt="icon"/>
                         </div>
                         <div>
-                            
+
                         </div>
                     </div>
                 </div>

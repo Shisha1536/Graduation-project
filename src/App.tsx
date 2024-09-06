@@ -4,21 +4,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import './App.css';
 import { BlockHeader } from "./pages/header";
 import { BlockFooter } from "./pages/foooter";
-import { BlockMain } from "./pages/main/index";
-import  Test  from "./pages/main/test";
+import { BlockHome } from "./pages/main/index";
+import  Test  from "./pages/main/login";
 
 function App() {
   return (
-    <BrowserRouter>
-      <BlockHeader />
-      <Routes>
-        <Route path="/" element={<BlockMain />} />
-        <Route path="/books" element={<Test />} />
-      </Routes>
-      
-      <BlockFooter />
-    </BrowserRouter>
-
+    
+	<BlockHeader />
+	<Routes>
+		<Route path="*" element={<BlockHome />} />
+		<Route path="/login" element={<Test />} />
+	</Routes>
+	<BlockFooter />
   );
 }
 

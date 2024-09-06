@@ -1,5 +1,5 @@
 import style from "../public/css/header.module.css"
-import {  Link } from "react-router-dom";
+import {  Link, Outlet } from "react-router-dom";
 export function BlockHeader() {
     const pStyle = {
         background: 'rgb(2, 148, 145)',
@@ -25,7 +25,7 @@ export function BlockHeader() {
                 <div className={style.registrationBlock}>
                     <a href="#" className={style.registration}>Зарегистрироваться</a>
                     <p style={pStyle}></p>
-                    <a className={style.login} href="#">Войти</a>
+                    <Link className={style.login} to='/login'>Войти</Link>
                 </div>
             )
         }
@@ -36,9 +36,11 @@ export function BlockHeader() {
             <img src={process.env.PUBLIC_URL + '/logoheader.png'} alt=""/>
             <nav className={style.blockNav}>
                 <Link to='/'>Главная</Link>
-                <Link to='/books'>Тарифы</Link>
+                <Link to='/'>Тарифы</Link>
+                <Link to='/'>FAQ</Link>
             </nav>
             <Token />
+            <Outlet />
         </header>
     )
 }
