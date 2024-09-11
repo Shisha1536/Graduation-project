@@ -2,19 +2,19 @@ import BlockSlider from "./slider";
 import style from "../../public/css/main.module.css";
 
 export function BlockHome() {
-    const newPost = {
-        login: "sf_student10",
-        password: "KHKfTXb"
-    }
-    fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
-        method: 'POST',
-        body: JSON.stringify(newPost),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-    })
-    .then((response)=>response.json())
-    .then((data)=>{console.log(data)})
+    //const newPost = {
+    //    login: "sf_student10",
+    //    password: "KHKfTXb"
+    //}
+    //fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
+    //    method: 'POST',
+    //    body: JSON.stringify(newPost),
+    //    headers: {
+    //        'Content-type': 'application/json; charset=UTF-8'
+    //    }
+    //})
+    //.then((response)=>response.json())
+    //.then((data)=>{console.log(data)})
     return (
         <main className={style.main}>
                         <section className={style.section1}>
