@@ -1,5 +1,14 @@
 import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
+import { getCookie } from 'typescript-cookie'
+import { GetAccountInfo } from "../components/requests";
+import { ReactElement, useEffect, useState } from "react";
+
+interface Data {
+    companyLimit: number,
+    usedCompanyCount: number
+}
+
 export function BlockHeader() {
     const pStyle = {
         background: 'rgb(2, 148, 145)',
@@ -9,8 +18,9 @@ export function BlockHeader() {
         width: '2px'
     }
 
-    function Token() {
-        if (document.cookie.includes("accessToken")) {
+    async function Test() {
+        let results = await GetAccountInfo(getCookie('graduation-project'))
+            console.log(results)
             return (
                 <div>
                     <div>
@@ -20,6 +30,12 @@ export function BlockHeader() {
                     <div>User</div>
                 </div>
             )
+    }
+
+    function Token() {
+        if (getCookie('graduation-project')) {
+            let results = Test();
+            return results
         } else {
             return (
                 <div className={style.registrationBlock}>

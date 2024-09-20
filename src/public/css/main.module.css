@@ -109,11 +109,114 @@
     }
 }
 .blockLogin {
-
+    display: flex;
 }
 .blockLogin_h1 {
     font-family: ABeeZee;
     font-size: 40px;
     font-weight: 400;
     line-height: 47px;
+}
+.login,
+.password,
+.btn_login {
+    width: 100%;
+}
+.login,
+.password {
+    margin-top: 1rem;
+    height: 2.5rem;
+    box-sizing: border-box;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.05);
+    background: rgb(255, 255, 255);
+}
+.login {
+    margin-bottom: 1.25rem;
+}
+.btn_login {
+    margin-top: 1.9rem;
+    margin-bottom: 0.9rem;
+    padding: 1rem;
+    color: rgb(255, 255, 255);
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 500;
+    border: 1px solid rgb(171, 176, 207);
+    border-radius: 5px;
+    background: rgb(171, 176, 207);
+}
+.btn_login:enabled {
+    cursor: pointer;
+    background: rgb(89, 112, 255);
+    border: 1px solid rgb(171, 176, 207);
+}
+.recover_password {
+    color: rgb(89, 112, 255);
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-decoration-line: underline;
+    text-align: center;
+    margin-bottom: 1.9rem;
+}
+.form_login {
+    padding: 2.5rem;
+    width: 45%;
+    margin-right: 81px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+}
+.block_link {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2.5rem;
+}
+.link_login {
+    padding: 0.5rem 3.1rem;
+    color: rgb(2, 148, 145);
+    border-bottom: 1px solid rgb(2, 148, 145);
+}
+.link_register {
+    padding: 0.5rem 1.25rem;
+    color: rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+.block_log_in_via {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+.log_in_via {
+    display: flex;
+    gap: 0.6rem;
+}
+.log_in_via_link {
+    box-sizing: border-box;
+    border: 1px solid rgba(89, 112, 255, 0.51);
+    border-radius: 3px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 1.1rem;
+}
+.img_Characters {
+    padding-left: 7rem;
+    padding-top: 1.5rem;
+}
+.img_1171274237 {
+    position: absolute;
+    margin-left: 17rem;
+    margin-top: -13rem;
+}
+.inDevelopment {
+    text-decoration: underline;
+    color: rgb(2, 148, 145);
 }
