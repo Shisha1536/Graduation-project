@@ -17,10 +17,32 @@ export function BlockHeader() {
         margin: '0px',
         width: '2px'
     }
+    const [login, setLogin] = useState(false);
+    const [data, setData] = useState();
+
+
 
     async function Test() {
-        let results = await GetAccountInfo(getCookie('graduation-project'))
-            console.log(results)
+        useEffect(() => {
+            (async () => {
+            const result = await GetAccountInfo(getCookie('graduation-project'));
+            if (typeof(result) == "object") {
+                setData(result)
+            }
+           })()
+          }, []);
+    }
+
+    function Token() {
+        if (getCookie('graduation-project')) {
+            setLogin(true);
+        } else {
+            setLogin(false)
+        }
+        if (login) {
+            console.log('1')
+            let results = Test();
+            console.log('2')
             return (
                 <div>
                     <div>
@@ -30,12 +52,6 @@ export function BlockHeader() {
                     <div>User</div>
                 </div>
             )
-    }
-
-    function Token() {
-        if (getCookie('graduation-project')) {
-            let results = Test();
-            return results
         } else {
             return (
                 <div className={style.registrationBlock}>

@@ -42,6 +42,6 @@ export async function GetAccountInfo (authorized: string | undefined) {
     })
     .then((response) => response.json())
     .then((data) => {
-        console.log(typeof(data?.eventFiltersInfo))
+        return data?.eventFiltersInfo
     })
 }
