@@ -2,7 +2,16 @@ import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
 import { getCookie } from 'typescript-cookie'
 import { GetAccountInfo } from "../components/requests";
-import { ReactElement, useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
+
+type DataType = {
+    eventFiltersInfo?: object
+}
+type eventFiltersInfo = {
+    companyLimit?: number,
+    usedCompanyCount?: number
+}
+
 
 export function BlockHeader() {
     const pStyle = {
@@ -12,39 +21,28 @@ export function BlockHeader() {
         margin: '0px',
         width: '2px'
     }
-    const [login, setLogin] = useState('');
-    const [data, setData] = useState();
 
+    const [data, setData] = useState({});
 
-
-    async function Test() {
-        useEffect(() => {
-            (async () => {
-                console.log('1')
-                let a = getCookie('graduation-project');
-                if (a) {
-                    setLogin(a)
-                }
-            let b = await GetAccountInfo(login);
-            if (b === undefined) {
-                return <>Still loading...</>;
-              }
-            if (typeof(b) == "object") {
-                setData(b)
-            }
-           })()
-          }, []);
+    function Data(props: DataType) {
+        setData(props)
     }
 
-    function Token(props: any) {
-        debugger
-        if (login) {
-            Test();
+    useLayoutEffect(() => {
+        GetAccountInfo(getCookie('graduation-project'), Data);
+    },[])
+
+    function Token() {
+        if (data) {
+            let eventInfo: DataType = data;
+            let eventFiltersInfo: eventFiltersInfo | undefined = eventInfo.eventFiltersInfo;
+            let companyLimit: number | undefined = eventFiltersInfo?.companyLimit;
+            let usedCompanyCount: number | undefined = eventFiltersInfo?.usedCompanyCount;
             return (
                 <div>
                     <div>
-                        <p>Использовано</p>
-                        <p>Лимит</p>
+                        <p>Использовано компаний {companyLimit}</p>
+                        <p>Лимит по компаниям {usedCompanyCount}</p>
                     </div>
                     <div>User</div>
                 </div>
@@ -68,7 +66,7 @@ export function BlockHeader() {
                 <Link to='/inDevelopment'>Тарифы</Link>
                 <Link to='/inDevelopment'>FAQ</Link>
             </nav>
-            <Token  funck = {setData}/>
+            <Token />
         </header>
     )
 }

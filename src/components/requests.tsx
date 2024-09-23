@@ -32,8 +32,12 @@ export function Entrance() {
     }
     queriLogin(datalogin)
 }
-export async function GetAccountInfo (props: any) {
-    let token = `Bearer ${props?.authorized}`
+export async function GetAccountInfo (authorized: string | undefined, Data: (props: object) => void) {
+    if (!authorized) {
+        return
+    }
+    
+    let token = `Bearer ${authorized}`
     await fetch('https://gateway.scan-interfax.ru/api/v1/account/info', {
         method: 'GET',
         headers: {
@@ -43,6 +47,6 @@ export async function GetAccountInfo (props: any) {
     })
     .then((response) => response.json())
     .then((data) => {
-        return data?.eventFiltersInfo
+        Data(data)
     })
 }
