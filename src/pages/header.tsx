@@ -4,11 +4,6 @@ import { getCookie } from 'typescript-cookie'
 import { GetAccountInfo } from "../components/requests";
 import { ReactElement, useEffect, useState } from "react";
 
-interface Data {
-    companyLimit: number,
-    usedCompanyCount: number
-}
-
 export function BlockHeader() {
     const pStyle = {
         background: 'rgb(2, 148, 145)',
@@ -17,7 +12,7 @@ export function BlockHeader() {
         margin: '0px',
         width: '2px'
     }
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState('');
     const [data, setData] = useState();
 
 
@@ -25,24 +20,26 @@ export function BlockHeader() {
     async function Test() {
         useEffect(() => {
             (async () => {
-            const result = await GetAccountInfo(getCookie('graduation-project'));
-            if (typeof(result) == "object") {
-                setData(result)
+                console.log('1')
+                let a = getCookie('graduation-project');
+                if (a) {
+                    setLogin(a)
+                }
+            let b = await GetAccountInfo(login);
+            if (b === undefined) {
+                return <>Still loading...</>;
+              }
+            if (typeof(b) == "object") {
+                setData(b)
             }
            })()
           }, []);
     }
 
-    function Token() {
-        if (getCookie('graduation-project')) {
-            setLogin(true);
-        } else {
-            setLogin(false)
-        }
+    function Token(props: any) {
+        debugger
         if (login) {
-            console.log('1')
-            let results = Test();
-            console.log('2')
+            Test();
             return (
                 <div>
                     <div>
@@ -71,7 +68,7 @@ export function BlockHeader() {
                 <Link to='/inDevelopment'>Тарифы</Link>
                 <Link to='/inDevelopment'>FAQ</Link>
             </nav>
-            <Token />
+            <Token  funck = {setData}/>
         </header>
     )
 }

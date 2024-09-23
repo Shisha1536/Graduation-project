@@ -18,7 +18,7 @@ export function Entrance() {
             method: 'POST',
             body: JSON.stringify(datalogin),
             headers: {
-                'Content-type': 'application/json; charset=UTF-8'
+                'Content-type': 'application/json'
             }
         })
         .then((response) => response.json())
@@ -32,12 +32,13 @@ export function Entrance() {
     }
     queriLogin(datalogin)
 }
-export async function GetAccountInfo (authorized: string | undefined) {
-    let token = `Bearer ${authorized}`
+export async function GetAccountInfo (props: any) {
+    let token = `Bearer ${props?.authorized}`
     await fetch('https://gateway.scan-interfax.ru/api/v1/account/info', {
         method: 'GET',
         headers: {
-            'Authorization': token
+            'Authorization': token,
+            'Content-type': 'application/json'
         }
     })
     .then((response) => response.json())
