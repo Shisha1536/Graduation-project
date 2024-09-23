@@ -1,6 +1,6 @@
 import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
-import { getCookie } from 'typescript-cookie'
+import { getCookie, removeCookie } from 'typescript-cookie'
 import { GetAccountInfo } from "../components/requests";
 import { useLayoutEffect, useState } from "react";
 
@@ -32,6 +32,10 @@ export function BlockHeader() {
         GetAccountInfo(getCookie('graduation-project'), Data);
     },[])
 
+    function LogOutOfTheProfile() {
+        removeCookie('graduation-project');
+    }
+
     function Token() {
         if (data) {
             let eventInfo: DataType = data;
@@ -44,7 +48,13 @@ export function BlockHeader() {
                         <p>Использовано компаний {companyLimit}</p>
                         <p>Лимит по компаниям {usedCompanyCount}</p>
                     </div>
-                    <div>User</div>
+                    <div>
+                        <div>
+                            <p>Алексей А.</p>
+                            <button type="button" onClick={LogOutOfTheProfile}>Выйти</button>
+                        </div>
+                        <img src={process.env.PUBLIC_URL + '/Mask_group.png'} alt="icon" width={32} height={32}/>
+                    </div>
                 </div>
             )
         } else {
