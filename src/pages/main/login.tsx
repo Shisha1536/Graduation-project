@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import style from "../../public/css/main.module.css"
 import { Entrance } from "../../components/requests";
 import Loader from "../../components/loader";
@@ -7,6 +7,12 @@ import { useState } from "react";
 export default function Login() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+    function handlerEntrance() {
+        Entrance(navigate)
+    }
+
     return (
         <main className={style.main}>
             <section className={style.blockLogin}>
@@ -29,7 +35,7 @@ export default function Login() {
                         <input className={style.password} type="password" name="password" 
                             value={password} onChange={event => setPassword(event.target.value)}></input>
                     </div>
-                    <button onClick={Entrance} className={style.btn_login} type='button' id="btn_login" 
+                    <button onClick={handlerEntrance} className={style.btn_login} type='button' id="btn_login" 
                         disabled={!login || !password} >Войти</button>
                     <Link className={style.recover_password} to='/inDevelopment'>Восстановить пароль</Link>
                     <div className={style.block_log_in_via}>

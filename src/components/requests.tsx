@@ -1,7 +1,7 @@
-import { getCookie, setCookie } from 'typescript-cookie'
-import { Navigate } from "react-router-dom";
+import {  setCookie } from 'typescript-cookie'
+import {  NavigateFunction } from "react-router-dom";
 
-export function Entrance() {
+export function Entrance(nav: NavigateFunction) {    
     let loader = document.querySelector('.block_loader');
     loader?.classList.remove('block_loader_none');
 
@@ -13,6 +13,7 @@ export function Entrance() {
         let value = e.value;
         datalogin[key] = value;
     })
+
     async function queriLogin(datalogin: Record<string, string>) {
         await fetch('https://gateway.scan-interfax.ru/api/v1/account/login', {
             method: 'POST',
@@ -25,10 +26,8 @@ export function Entrance() {
         .then((data) => {
             setCookie('graduation-project', data?.accessToken, { expires: 1 });
             loader?.classList.add('block_loader_none');
-            return(
-                <Navigate replace to='/'></Navigate>
-            )
         })
+        nav('/searchCounterpartyInformation')
     }
     queriLogin(datalogin)
 }

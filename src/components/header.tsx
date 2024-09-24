@@ -1,7 +1,7 @@
 import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
 import { getCookie, removeCookie } from 'typescript-cookie'
-import { GetAccountInfo } from "../components/requests";
+import { GetAccountInfo } from "./requests";
 import { useLayoutEffect, useState } from "react";
 
 type DataType = {
@@ -11,7 +11,6 @@ type eventFiltersInfo = {
     companyLimit?: number,
     usedCompanyCount?: number
 }
-
 
 export function BlockHeader() {
     const pStyle = {
@@ -23,6 +22,7 @@ export function BlockHeader() {
     }
 
     const [data, setData] = useState({});
+    const [token, setToken] = useState('')
 
     function Data(props: DataType) {
         setData(props)
@@ -34,10 +34,15 @@ export function BlockHeader() {
 
     function LogOutOfTheProfile() {
         removeCookie('graduation-project');
+        setToken('');
     }
 
     function Token() {
-        if (data) {
+        let accessToken: string | undefined = getCookie('graduation-project');
+        if (typeof(accessToken) == "string") {
+            setToken(accessToken)
+        }
+        if (token) {
             let eventInfo: DataType = data;
             let eventFiltersInfo: eventFiltersInfo | undefined = eventInfo.eventFiltersInfo;
             let companyLimit: number | undefined = eventFiltersInfo?.companyLimit;
