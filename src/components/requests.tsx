@@ -1,5 +1,6 @@
 import {  setCookie } from 'typescript-cookie'
 import {  NavigateFunction } from "react-router-dom";
+import { HandlerUserLogin } from "./helpers";
 
 export function Entrance(nav: NavigateFunction) {    
     let loader = document.querySelector('.block_loader');
@@ -25,9 +26,9 @@ export function Entrance(nav: NavigateFunction) {
         .then((response) => response.json())
         .then((data) => {
             setCookie('graduation-project', data?.accessToken, { expires: 1 });
-            loader?.classList.add('block_loader_none');
+            HandlerUserLogin(data?.accessToken);
         })
-        nav('/searchCounterpartyInformation')
+        nav('/')
     }
     queriLogin(datalogin)
 }
@@ -48,4 +49,7 @@ export async function GetAccountInfo (authorized: string | undefined, Data: (pro
     .then((data) => {
         Data(data)
     })
+}
+export async function SearchQuery() {
+    
 }

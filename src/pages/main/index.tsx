@@ -1,5 +1,17 @@
 import BlockSlider from "./slider";
 import style from "../../public/css/main.module.css";
+import { Link } from "react-router-dom";
+import { getCookie } from "typescript-cookie";
+
+function RequestData() {
+    let accessToken: string | undefined = getCookie('graduation-project');
+    if (typeof(accessToken) == "string") {
+        return <Link className={style.request_data} to="/searchCounterpartyInformation" >Запросить данные</Link>
+    } else {
+        return <></>
+    }
+}
+
 
 export function BlockHome() {
     return (
@@ -8,7 +20,7 @@ export function BlockHome() {
                 <div>
                     <h1>сервис по поиску публикаций о компании по его ИНН</h1>
                     <p>Комплексный анализ публикаций, получение данных в формате PDF на электронную почту.</p>
-                    <button>Запросить данные</button>
+                    <RequestData />
                 </div>
                 <img src={process.env.PUBLIC_URL + '/23981.png'} alt=""/>
             </section>
