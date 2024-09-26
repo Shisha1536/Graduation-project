@@ -1,6 +1,5 @@
+import { NavigateFunction } from 'react-router-dom';
 import {  setCookie } from 'typescript-cookie'
-import {  NavigateFunction } from "react-router-dom";
-import { HandlerUserLogin } from "./helpers";
 
 export function Entrance(nav: NavigateFunction) {    
     let loader = document.querySelector('.block_loader');
@@ -26,13 +25,13 @@ export function Entrance(nav: NavigateFunction) {
         .then((response) => response.json())
         .then((data) => {
             setCookie('graduation-project', data?.accessToken, { expires: 1 });
-            HandlerUserLogin(data?.accessToken);
+            window.location.reload()
         })
         nav('/')
     }
     queriLogin(datalogin)
 }
-export async function GetAccountInfo (authorized: string | undefined, Data: (props: object) => void) {
+export async function GetAccountInfo (authorized: string | undefined) {
     if (!authorized) {
         return
     }
@@ -47,7 +46,7 @@ export async function GetAccountInfo (authorized: string | undefined, Data: (pro
     })
     .then((response) => response.json())
     .then((data) => {
-        Data(data)
+        return data
     })
 }
 export async function SearchQuery() {

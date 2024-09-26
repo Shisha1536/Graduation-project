@@ -5,6 +5,7 @@ import Loader from "../../components/loader";
 import { useState } from "react";
 
 export default function Login() {
+    debugger
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
