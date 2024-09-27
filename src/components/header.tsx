@@ -12,7 +12,6 @@ type eventFiltersInfo = {
     usedCompanyCount?: number
 }
 
-
 export function BlockHeader() {
     const pStyle = {
         background: 'rgb(2, 148, 145)',
@@ -24,21 +23,16 @@ export function BlockHeader() {
     
     const [token,setToken] = useState('');
 
-    //function Data(props: DataType) {
-    //    setData(props)
-    //}
     function Ura() {
         let accessToken: string | undefined = getCookie('graduation-project');
         if (accessToken) {
             setToken(accessToken)
         }
     }
-    //useLayoutEffect(() => {
-    //    GetAccountInfo(getCookie('graduation-project'), Data);
-    //},[])
 
     function LogOutOfTheProfile() {
         removeCookie('graduation-project');
+        window.location.reload()
     }
 
     function Token() {
@@ -74,32 +68,6 @@ export function BlockHeader() {
                 </div>
             )
         }
-        
-        
-        //let accessToken: string | undefined = HelpersTokenBlockHeaders(getCookie('graduation-project'));
-        //if (accessToken) {
-        //    let eventInfo: DataType = data;
-        //    let eventFiltersInfo: eventFiltersInfo | undefined = eventInfo.eventFiltersInfo;
-        //    let companyLimit: number | undefined = eventFiltersInfo?.companyLimit;
-        //    let usedCompanyCount: number | undefined = eventFiltersInfo?.usedCompanyCount;
-        //    return (
-        //        <div>
-        //            <div>
-        //                <p>Использовано компаний {companyLimit}</p>
-        //                <p>Лимит по компаниям {usedCompanyCount}</p>
-        //            </div>
-        //            <div>
-        //                <div>
-        //                    <p>Алексей А.</p>
-        //                    <button type="button" onClick={LogOutOfTheProfile}>Выйти</button>
-        //                </div>
-        //                <img src={process.env.PUBLIC_URL + '/Mask_group.png'} alt="icon" width={32} height={32}/>
-        //            </div>
-        //        </div>
-        //    )
-        //} else {
-        //    
-        //}
     }
     return (
         <header className={style.header}>
