@@ -25,9 +25,11 @@ export function Entrance(nav: NavigateFunction) {
         .then((response) => response.json())
         .then((data) => {
             setCookie('graduation-project', data?.accessToken, { expires: 1 });
+            nav('/')
             window.location.reload()
+            
         })
-        nav('/')
+        
     }
     queriLogin(datalogin)
 }
