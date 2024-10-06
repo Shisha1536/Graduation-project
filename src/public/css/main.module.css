@@ -219,3 +219,93 @@
     text-decoration: underline;
     color: rgb(2, 148, 145);
 }
+.ulList {
+    padding: 0;
+    color: rgb(0, 0, 0);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 59px;
+    li {
+        list-style-type: none;
+        color: rgb(0, 0, 0);
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+    li:before {
+        content: '✔';
+        color: #33FF33;
+    }
+}
+.btn_personal_account,
+.btn_detailed {
+    display: flex;
+    justify-content: center;
+    padding: 17.5px;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 55px;
+}
+.btn_detailed {
+    color: rgb(255, 255, 255);
+    background: rgb(89, 112, 255);
+}
+.btn_personal_account {
+    color: rgb(0, 0, 0);
+    background: rgb(210, 210, 210);
+}
+.block_tarif_three,
+.block_tarif_two,
+.block_tarif_one {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0 30px;
+    padding-bottom: 24px;
+    height: 408px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.block_tarif_three,
+.block_tarif_two {
+    background: rgb(255, 255, 255);
+}
+.block_tarif_one {
+    border: 2px solid rgb(255, 182, 79);
+}
+.pPrice {
+    margin: 0;
+    color: rgb(0, 0, 0);
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+    del {
+        opacity: 0.5;
+        font-size: 25px;
+        line-height: 30px;
+    }
+}
+.pPriceMonth {
+    color: rgb(0, 0, 0);
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 375px) {
+    
+}

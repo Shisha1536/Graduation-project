@@ -51,10 +51,17 @@ a:hover {
     font-size: 10px;
     font-weight: 400;
     line-height: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 16px 12.5px;
+    display: flex;
+    gap: 7px;
+    flex-direction: column;
+    align-items: self-end;
     span {
-        text-align: end;
+        display: flex;
+        gap: 5px;
+        p {
+            margin: 0;
+        }
     }
 }
 .block_usernameicon {
@@ -81,8 +88,33 @@ a:hover {
         border: none;
         background-color: white;
     }
+    button:hover{
+        cursor: pointer;
+        opacity: 1;
+    }
     div {
         display: flex;
         flex-direction: column;
+    }
+}
+.img_menu {
+    display: none;
+}
+@media screen and (max-width: 375px) {
+    .blockNav {
+        display: none;
+    }
+    .header {
+        width: 375px;
+        padding: 0 26px 0 14px;
+    }
+    .block_usernameicon {
+        display: none;
+    }
+    .img_menu {
+        display: block;
+    }
+    .registrationBlock {
+        display: none;
     }
 }

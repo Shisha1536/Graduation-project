@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "../../public/css/SearchCounterpartyInformation.module.css";
+import { HandlerSearchQuery } from "../../components/requests";
 
 type issueDateInterval = {
     startDate: string,
@@ -128,7 +129,7 @@ export function SearchCounterpartyInformation(this: any) {
                     </div>
                     <div>
                         <button className={style.btn_search} 
-                        disabled={!inn || !numberDocuments || !startDate || !endDate}>Поиск</button>
+                        disabled={!inn || !numberDocuments || !startDate || !endDate} onClick={HandlerSearchQuery}>Поиск</button>
                         <p className={style.pStyle}>* Обязательные к заполнению поля</p>
                     </div>
                 </div>

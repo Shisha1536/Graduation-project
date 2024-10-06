@@ -1,8 +1,8 @@
 import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
 import { getCookie, removeCookie } from 'typescript-cookie'
-import { GetAccountInfo } from "./requests";
-import {  useLayoutEffect, useState } from "react";
+import { HandlerGetAccountInfo } from "./requests";
+import {  useState } from "react";
 
 type DataType = {
     eventFiltersInfo?: object
@@ -20,26 +20,40 @@ export function BlockHeader() {
         margin: '0px',
         width: '2px'
     }
+    const companyLimitStyle = {
+        color: 'rgb(138, 197, 64)',
+    }
+    const usedCompanyCountStyle = {
+        color: 'rgb(0, 0, 0)',
+    }
     
     const [token,setToken] = useState('');
+    const [dataInfo, setDataInfo] = useState({});
 
-    function Ura() {
+    function HandlerTokenReceipt() {
         let accessToken: string | undefined = getCookie('graduation-project');
         if (accessToken) {
             setToken(accessToken)
         }
     }
 
-    function LogOutOfTheProfile() {
+    function HandlerLogOutOfTheProfile() {
         removeCookie('graduation-project');
-        window.location.reload()
+        window.location.replace('/')
+    }
+    function HandlerAccountInfo() {
+        HandlerGetAccountInfo(token, setDataInfo)
     }
 
     function Token() {
-        Ura();
+        if (!token) {
+            HandlerTokenReceipt();
+        }
         if (token) {
-            let data: any = GetAccountInfo(token);
-            let eventInfo: DataType = data;
+            if (Object.keys(dataInfo).length === 0) {
+                HandlerAccountInfo();
+            }
+            let eventInfo: DataType = dataInfo;
             let eventFiltersInfo: eventFiltersInfo | undefined = eventInfo.eventFiltersInfo;
             let companyLimit: number | undefined = eventFiltersInfo?.companyLimit;
             let usedCompanyCount: number | undefined = eventFiltersInfo?.usedCompanyCount;
@@ -47,31 +61,35 @@ export function BlockHeader() {
                 <div className={style.block_user}>
                     <div className={style.block_param}>
                         <span>
-                            <p>Использовано компаний</p>
-                            <p>Лимит по компаниям</p>
+                            <p>Использовано компаний </p><p style={usedCompanyCountStyle}>{usedCompanyCount}</p>
                         </span>
                         <span>
-                            <p>{companyLimit}</p>
-                            <p>{usedCompanyCount}</p>
+                            <p>Лимит по компаниям </p><p style={companyLimitStyle}>{companyLimit}</p>
                         </span>
                     </div>
                     <div className={style.block_usernameicon}>
                         <div>
                             <p>Алексей А.</p>
-                            <button type="button" onClick={LogOutOfTheProfile}>Выйти</button>
+                            <button type="button" onClick={HandlerLogOutOfTheProfile}>Выйти</button>
                         </div>
                         <img src={process.env.PUBLIC_URL + '/Mask_group.png'} alt="icon" width={32} height={32}/>
                     </div>
                 </div>
             )
         } else {
-            return (
-                <div className={style.registrationBlock}>
-                    <Link className={style.registration} to='/inDevelopment'>Зарегистрироваться</Link>
-                    <p style={pStyle}></p>
-                    <Link className={style.login} to='/login'>Войти</Link>
-                </div>
-            )
+            if (window.outerWidth > 375) {
+                return (
+                    <div className={style.registrationBlock}>
+                        <Link className={style.registration} to='/inDevelopment'>Зарегистрироваться</Link>
+                        <p style={pStyle}></p>
+                        <Link className={style.login} to='/login'>Войти</Link>
+                    </div>
+                )
+            } else {
+                return (
+                    <></>
+                )
+            }
         }
     }
     return (
@@ -83,6 +101,7 @@ export function BlockHeader() {
                 <Link to='/inDevelopment'>FAQ</Link>
             </nav>
             <Token />
+            <img className={style.img_menu} src={process.env.PUBLIC_URL + '/menu.png'} alt=""/>
         </header>
     )
 }

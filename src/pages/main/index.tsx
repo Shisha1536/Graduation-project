@@ -14,6 +14,9 @@ function RequestData() {
 
 
 export function BlockHome() {
+    const pPriceThree = {
+        marginBottom: '56px'
+    }
     return (
         <main className={style.main}>
                         <section className={style.section1}>
@@ -42,8 +45,17 @@ export function BlockHome() {
                             </div>
                             <img src={process.env.PUBLIC_URL + '/bulb.png'} alt="icon"/>
                         </div>
-                        <div>
-                            <p>799 &#8381;  <del>1200 &#8381;</del></p>
+                        <div className={style.block_tarif_one}>
+                            <p className={style.pPrice}>799 &#8381;  <del>1 200 &#8381;</del></p>
+                            <p className={style.pPriceMonth}>или 150 ₽/мес. при рассрочке на 24 мес.</p>
+                            <div>
+                                <ul className={style.ulList}>В тариф входит:
+                                    <li>Безлимитная история запросов</li>
+                                    <li>Безопасная сделка</li>
+                                    <li>Поддержка 24/7</li>
+                                </ul>
+                            </div>
+                            <Link className={style.btn_personal_account} to='/inDevelopment'>Перейти в личный кабинет</Link>
                         </div>
                     </div>
                     <div className={style.level1}>
@@ -54,8 +66,17 @@ export function BlockHome() {
                             </div>
                             <img src={process.env.PUBLIC_URL + '/darts.png'} alt="icon"/>
                         </div>
-                        <div>
-
+                        <div className={style.block_tarif_two}>
+                            <p className={style.pPrice}>1 299 &#8381;  <del>2 600 &#8381;</del></p>
+                            <p className={style.pPriceMonth}>или 279 ₽/мес. при рассрочке на 24 мес.</p>
+                            <div>
+                                <ul className={style.ulList}>В тариф входит:
+                                    <li>Все пункты тарифа Beginner</li>
+                                    <li>Экспорт истории</li>
+                                    <li>Рекомендации по приоритетам</li>
+                                </ul>
+                            </div>
+                            <Link className={style.btn_detailed} to='/inDevelopment'>Подробнее</Link>
                         </div>
                     </div>
                     <div className={style.level1}>
@@ -66,8 +87,16 @@ export function BlockHome() {
                             </div>
                             <img src={process.env.PUBLIC_URL + '/pc.png'} alt="icon"/>
                         </div>
-                        <div>
-
+                        <div className={style.block_tarif_three}>
+                            <p className={style.pPrice} style={pPriceThree}>2 379 &#8381;  <del>3 700 &#8381;</del></p>
+                            <div>
+                                <ul className={style.ulList}>В тариф входит:
+                                    <li>Все пункты тарифа Pro</li>
+                                    <li>Безлимитное количество запросов</li>
+                                    <li>Приоритетная поддержка</li>
+                                </ul>
+                            </div>
+                            <Link className={style.btn_detailed} to='/inDevelopment'>Подробнее</Link>
                         </div>
                     </div>
                 </div>

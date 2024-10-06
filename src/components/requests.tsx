@@ -1,3 +1,4 @@
+import { SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import {  setCookie } from 'typescript-cookie'
 
@@ -33,7 +34,7 @@ export function Entrance(nav: NavigateFunction) {
     }
     queriLogin(datalogin)
 }
-export async function GetAccountInfo (authorized: string | undefined) {
+export async function HandlerGetAccountInfo (authorized: string | undefined, setDataInfo: { (value: SetStateAction<{}>): void; (arg0: any): void; }) {
     if (!authorized) {
         return
     }
@@ -48,9 +49,11 @@ export async function GetAccountInfo (authorized: string | undefined) {
     })
     .then((response) => response.json())
     .then((data) => {
-        return data
+        if (typeof(data) == 'object') {
+            setDataInfo(data);
+        }
     })
 }
-export async function SearchQuery() {
+export async function HandlerSearchQuery() {
     
 }
