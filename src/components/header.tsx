@@ -36,7 +36,6 @@ export function BlockHeader() {
     }
 
     function Token() {
-        debugger
         Ura();
         if (token) {
             let data: any = GetAccountInfo(token);
@@ -45,12 +44,18 @@ export function BlockHeader() {
             let companyLimit: number | undefined = eventFiltersInfo?.companyLimit;
             let usedCompanyCount: number | undefined = eventFiltersInfo?.usedCompanyCount;
             return (
-                <div>
-                    <div>
-                        <p>Использовано компаний {companyLimit}</p>
-                        <p>Лимит по компаниям {usedCompanyCount}</p>
+                <div className={style.block_user}>
+                    <div className={style.block_param}>
+                        <span>
+                            <p>Использовано компаний</p>
+                            <p>Лимит по компаниям</p>
+                        </span>
+                        <span>
+                            <p>{companyLimit}</p>
+                            <p>{usedCompanyCount}</p>
+                        </span>
                     </div>
-                    <div>
+                    <div className={style.block_usernameicon}>
                         <div>
                             <p>Алексей А.</p>
                             <button type="button" onClick={LogOutOfTheProfile}>Выйти</button>
