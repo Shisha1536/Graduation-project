@@ -1,9 +1,14 @@
 .header {
     display: flex;
+    justify-content: center;
+}
+.block_header {
+    display: flex;
     justify-content: space-between;
     padding: 0 60px;
     align-items: center;
     height: 93px;
+    width: 1440px;
 }
 .blockNav {
     display: flex;

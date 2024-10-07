@@ -1,6 +1,5 @@
 import { SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
-import {  setCookie } from 'typescript-cookie'
 
 export function Entrance(nav: NavigateFunction) {    
     let loader = document.querySelector('.block_loader');
@@ -25,12 +24,16 @@ export function Entrance(nav: NavigateFunction) {
         })
         .then((response) => response.json())
         .then((data) => {
-            setCookie('graduation-project', data?.accessToken, { expires: 1 });
-            nav('/')
-            window.location.reload()
-            
+            if (data?.accessToken) {
+                localStorage.setItem('graduation_project', data?.accessToken);
+                nav('/')
+                window.location.reload()
+            } else {
+                
+                alert(data?.message)
+                window.location.reload()
+            }
         })
-        
     }
     queriLogin(datalogin)
 }
@@ -39,7 +42,7 @@ export async function HandlerGetAccountInfo (authorized: string | undefined, set
         return
     }
     
-    let token = `Bearer ${authorized}`
+    let token = `Bearer ${localStorage.graduation_project}`
     await fetch('https://gateway.scan-interfax.ru/api/v1/account/info', {
         method: 'GET',
         headers: {

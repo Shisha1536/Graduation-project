@@ -1,14 +1,20 @@
 import BlockSlider from "./slider";
 import style from "../../public/css/main.module.css";
 import { Link } from "react-router-dom";
-import { getCookie } from "typescript-cookie";
 
 function RequestData() {
-    let accessToken: string | undefined = getCookie('graduation-project');
-    if (typeof(accessToken) == "string") {
+    if (localStorage.graduation_project) {
         return <Link className={style.request_data} to="/searchCounterpartyInformation" >Запросить данные</Link>
     } else {
         return <></>
+    }
+}
+
+function GoToLc() {
+    if (localStorage.graduation_project) {
+        return <Link className={style.btn_personal_account} to='/inDevelopment'>Перейти в личный кабинет</Link>
+    } else {
+        return <Link className={style.btn_detailed} to='/inDevelopment'>Подробнее</Link>
     }
 }
 
@@ -55,7 +61,7 @@ export function BlockHome() {
                                     <li>Поддержка 24/7</li>
                                 </ul>
                             </div>
-                            <Link className={style.btn_personal_account} to='/inDevelopment'>Перейти в личный кабинет</Link>
+                            <GoToLc />
                         </div>
                     </div>
                     <div className={style.level1}>
@@ -76,7 +82,7 @@ export function BlockHome() {
                                     <li>Рекомендации по приоритетам</li>
                                 </ul>
                             </div>
-                            <Link className={style.btn_detailed} to='/inDevelopment'>Подробнее</Link>
+                            <GoToLc />
                         </div>
                     </div>
                     <div className={style.level1}>
@@ -96,7 +102,7 @@ export function BlockHome() {
                                     <li>Приоритетная поддержка</li>
                                 </ul>
                             </div>
-                            <Link className={style.btn_detailed} to='/inDevelopment'>Подробнее</Link>
+                            <GoToLc />
                         </div>
                     </div>
                 </div>

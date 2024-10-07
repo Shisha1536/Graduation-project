@@ -6,13 +6,23 @@
 }
 .image-slider-container .slick-prev:before,
 .image-slider-container .slick-next:before {
-    color: black;
+    color: gray;
+}
+.slick-track {
+    height: 240px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding-top: 7.5px;
 }
 .block-slide {
     height: 225px;
     display: flex !important;
     flex-direction: column;
     justify-content: center;
+    padding-left: 20px;
+    box-shadow: 0px 0px 15px 0px rgba(34, 60, 80, 0.2);
+    border-radius: 10px;
     img {
         width: 64px;
         height: 64px;

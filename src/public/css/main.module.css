@@ -1,20 +1,28 @@
+@font-face {
+    font-family: "Ferry";
+    src: url("../fonts/ferry_black.otf") format("opentype");
+    }
 .main {
-    padding: 24px 60px 118px 60px;
+    padding: 24px 0 118px 0;
     display: flex;
     flex-direction: column;
     gap: 95px;
+    width: 100%;
+    align-items: center;
 }
 .section1 {
     display: flex;
     gap: 157px;
     padding-top: 27px;
+    width: 1440px;
     h1 {
-        font-family: Arbutus;
+        color: rgb(0, 0, 0);
+        font-family: Ferry;
         font-size: 60px;
-        font-weight: 400;
+        font-weight: 900;
         line-height: 75px;
+        letter-spacing: 1%;
         text-align: left;
-        margin: 18px 0 0 0;
     }
     p {
         font-family: Inter;
@@ -40,6 +48,7 @@
 
 }
 .section2 {
+    width: 1440px;
     h2 {
         margin-top: 0;
         font-family: ABeeZee;
@@ -51,6 +60,7 @@
     }
 }
 .section3 {
+    width: 1440px;
     h2 {
         margin-top: 0;
         font-family: ABeeZee;
@@ -109,6 +119,7 @@
 }
 .blockLogin {
     display: flex;
+    width: 1440px;
 }
 .blockLogin_h1 {
     font-family: ABeeZee;

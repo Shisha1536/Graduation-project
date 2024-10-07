@@ -3,6 +3,13 @@
     grid-template-columns: 2fr 1fr;
     grid-auto-columns: auto auto;
     padding: 70px 53px;
+    width: 1440px;
+    h1 {
+        font-family: Ferry;
+        font-size: 40px;
+        font-weight: 900;
+        line-height: 48px;
+    }
 }
 .block_img {
     display: flex;

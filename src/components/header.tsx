@@ -1,6 +1,5 @@
 import style from "../public/css/header.module.css"
 import {  Link } from "react-router-dom";
-import { getCookie, removeCookie } from 'typescript-cookie'
 import { HandlerGetAccountInfo } from "./requests";
 import {  useState } from "react";
 
@@ -27,29 +26,20 @@ export function BlockHeader() {
         color: 'rgb(0, 0, 0)',
     }
     
-    const [token,setToken] = useState('');
+    //const [token,setToken] = useState('');
     const [dataInfo, setDataInfo] = useState({});
 
-    function HandlerTokenReceipt() {
-        let accessToken: string | undefined = getCookie('graduation-project');
-        if (accessToken) {
-            setToken(accessToken)
-        }
-    }
 
     function HandlerLogOutOfTheProfile() {
-        removeCookie('graduation-project');
+        delete localStorage.graduation_project;
         window.location.replace('/')
     }
     function HandlerAccountInfo() {
-        HandlerGetAccountInfo(token, setDataInfo)
+        HandlerGetAccountInfo(localStorage.graduation_project, setDataInfo)
     }
 
     function Token() {
-        if (!token) {
-            HandlerTokenReceipt();
-        }
-        if (token) {
+        if (localStorage.graduation_project) {
             if (Object.keys(dataInfo).length === 0) {
                 HandlerAccountInfo();
             }
@@ -94,14 +84,17 @@ export function BlockHeader() {
     }
     return (
         <header className={style.header}>
-            <img src={process.env.PUBLIC_URL + '/logoheader.png'} alt=""/>
-            <nav className={style.blockNav}>
-                <Link to='/'>Главная</Link>
-                <Link to='/inDevelopment'>Тарифы</Link>
-                <Link to='/inDevelopment'>FAQ</Link>
-            </nav>
-            <Token />
-            <img className={style.img_menu} src={process.env.PUBLIC_URL + '/menu.png'} alt=""/>
+            <div className={style.block_header}>
+                <img src={process.env.PUBLIC_URL + '/logoheader.png'} alt=""/>
+                <nav className={style.blockNav}>
+                    <Link to='/'>Главная</Link>
+                    <Link to='/inDevelopment'>Тарифы</Link>
+                    <Link to='/inDevelopment'>FAQ</Link>
+                </nav>
+                <Token />
+                <img className={style.img_menu} src={process.env.PUBLIC_URL + '/menu.png'} alt=""/>
+            </div>
         </header>
     )
 }
+ 
