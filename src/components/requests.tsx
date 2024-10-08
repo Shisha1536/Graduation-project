@@ -57,6 +57,6 @@ export async function HandlerGetAccountInfo (authorized: string | undefined, set
         }
     })
 }
-export async function HandlerSearchQuery() {
+export async function SearchQuery(body: {}) {
     
 }

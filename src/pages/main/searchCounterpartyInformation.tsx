@@ -1,7 +1,9 @@
 import { useState } from "react";
 import style from "../../public/css/SearchCounterpartyInformation.module.css";
-import { HandlerSearchQuery } from "../../components/requests";
+import { SearchQuery } from "../../components/requests";
 import Loader from "../../components/loader";
+import { Form } from "react-router-dom";
+
 
 type issueDateInterval = {
     startDate: string,
@@ -42,6 +44,51 @@ type attributeFilters = {
     excludeTechNews: boolean,
     excludeAnnouncements: boolean,
     excludeDigests: boolean
+}
+
+type FormElementSearchQuery = {
+    INN?: string,
+    Tonality?: string,
+    NumberDocuments?: string,
+    StartDate?: string,
+    EndDate?: string,
+    TheSignMaximumCompleteness?: boolean,
+    MentionsBusinessContext?: boolean,
+    TheMainRolePublication?: boolean,
+    PublicationsWithRiskFactorsOnly?: boolean,
+    IncludeTechnicalMarketNews?: boolean,
+    IncludeAnnouncementsCalendars?: boolean,
+    IncludeNewsBulletins?: boolean,
+
+}
+
+function startDate(value: any) {
+    
+}
+
+function HandlerSearchQuery() {
+    let body = {}
+    //debugger
+    let INN = document.getElementById('INN');
+    let Tonality = document.getElementById('Tonality');
+    let NumberDocuments = document.getElementById('NumberDocuments');
+    let StartDate = document.getElementById('StartDate') as HTMLInputElement | null;
+    //let test = new DateTime(StartDate?.value);
+    debugger
+    let EndDate = document.getElementById('EndDate');
+    let TheSignMaximumCompleteness = document.getElementById('TheSignMaximumCompleteness');
+    let MentionsBusinessContext = document.getElementById('MentionsBusinessContext');
+    let TheMainRolePublication = document.getElementById('TheMainRolePublication');
+    let PublicationsWithRiskFactorsOnly = document.getElementById('PublicationsWithRiskFactorsOnly');
+    let IncludeTechnicalMarketNews = document.getElementById('IncludeTechnicalMarketNews');
+    let IncludeAnnouncementsCalendars = document.getElementById('IncludeAnnouncementsCalendars');
+    let IncludeNewsBulletins = document.getElementById('IncludeNewsBulletins');
+    let issueDateInterval = {
+        //startDate: startDate(form?.StartDate)
+    }
+    
+
+    SearchQuery(body)
 }
 
 export function SearchCounterpartyInformation(this: any) {
