@@ -46,21 +46,6 @@ type attributeFilters = {
     excludeDigests: boolean
 }
 
-type FormElementSearchQuery = {
-    INN?: string,
-    Tonality?: string,
-    NumberDocuments?: string,
-    StartDate?: string,
-    EndDate?: string,
-    TheSignMaximumCompleteness?: boolean,
-    MentionsBusinessContext?: boolean,
-    TheMainRolePublication?: boolean,
-    PublicationsWithRiskFactorsOnly?: boolean,
-    IncludeTechnicalMarketNews?: boolean,
-    IncludeAnnouncementsCalendars?: boolean,
-    IncludeNewsBulletins?: boolean,
-
-}
 
 function startDate(value: any) {
     
@@ -69,26 +54,63 @@ function startDate(value: any) {
 function HandlerSearchQuery() {
     let body = {}
     //debugger
-    let INN = document.getElementById('INN');
-    let Tonality = document.getElementById('Tonality');
-    let NumberDocuments = document.getElementById('NumberDocuments');
+    let INN = document.getElementById('INN') as HTMLInputElement | null;
+    let Tonality = document.getElementById('Tonality') as HTMLElement | null;
+    let NumberDocuments = document.getElementById('NumberDocuments') as HTMLInputElement | null;
     let StartDate = document.getElementById('StartDate') as HTMLInputElement | null;
-    //let test = new DateTime(StartDate?.value);
     debugger
-    let EndDate = document.getElementById('EndDate');
-    let TheSignMaximumCompleteness = document.getElementById('TheSignMaximumCompleteness');
-    let MentionsBusinessContext = document.getElementById('MentionsBusinessContext');
-    let TheMainRolePublication = document.getElementById('TheMainRolePublication');
-    let PublicationsWithRiskFactorsOnly = document.getElementById('PublicationsWithRiskFactorsOnly');
-    let IncludeTechnicalMarketNews = document.getElementById('IncludeTechnicalMarketNews');
-    let IncludeAnnouncementsCalendars = document.getElementById('IncludeAnnouncementsCalendars');
-    let IncludeNewsBulletins = document.getElementById('IncludeNewsBulletins');
-    let issueDateInterval = {
-        //startDate: startDate(form?.StartDate)
-    }
+    let EndDate = document.getElementById('EndDate') as HTMLInputElement | null;
+    let TheSignMaximumCompleteness = document.getElementById('TheSignMaximumCompleteness') as HTMLInputElement | null;
+    let MentionsBusinessContext = document.getElementById('MentionsBusinessContext') as HTMLInputElement | null;
+    let TheMainRolePublication = document.getElementById('TheMainRolePublication') as HTMLInputElement | null;
+    let PublicationsWithRiskFactorsOnly = document.getElementById('PublicationsWithRiskFactorsOnly') as HTMLInputElement | null;
+    let IncludeTechnicalMarketNews = document.getElementById('IncludeTechnicalMarketNews') as HTMLInputElement | null;
+    let IncludeAnnouncementsCalendars = document.getElementById('IncludeAnnouncementsCalendars') as HTMLInputElement | null;
+    let IncludeNewsBulletins = document.getElementById('IncludeNewsBulletins') as HTMLInputElement | null;
     
+    let issueDateInterval = {
+        startDate: StartDate?.value,
+        endDate: EndDate?.value
+    }
+    let targetSearchEntities = {
+        type: "company",
+        sparkId: null,
+        entityId: null,
+        inn: INN?.value,
+        maxFullness: true,
+        inBusinessNews: null
+    }
+    let riskFactors = {
+        and: [],
+        or: [],
+        not: []
+    }
+    let targetSearchEntitiesContext = {
+        targetSearchEntities: targetSearchEntities,
+        onlyMainRole: true,
+        tonality: Tonality?.innerText,
+        onlyWithRiskFactors: false,
+        riskFactors: riskFactors,
+        themes: riskFactors
+    }
+    let searchContext = {
+        targetSearchEntitiesContext: targetSearchEntitiesContext,
+        themesFilter: riskFactors   
+    }
+    let searchArea = {
+        includedSources: [],
+        excludedSources: [],
+        includedSourceGroups: [],
+        excludedSourceGroups: []
+    }
+    let attributeFilters = {
+        excludeTechNews: true,
+        excludeAnnouncements: true,
+        excludeDigests: true
+    }
 
-    SearchQuery(body)
+
+    SearchQuery()
 }
 
 export function SearchCounterpartyInformation(this: any) {
@@ -117,6 +139,20 @@ export function SearchCounterpartyInformation(this: any) {
         justifyContent: 'center'
     }
 
+    const handleINNChange = (event: { target: { value: string; }; }) => {
+        const limit = 10;
+        setInn(event.target.value.slice(0, limit));
+    };
+
+    const handleNumberDocumentsChange = (event: { target: { value: string; }; }) => {
+        const limit = 4;
+        if (Number(event.target.value) < 1000) {
+            setNumberDocuments(event.target.value.slice(0, limit));
+        } else {
+            setNumberDocuments('1000');
+        }
+    };
+    
     return (
         <main style={block_search}>
             <div className={style.main}> 
@@ -132,15 +168,15 @@ export function SearchCounterpartyInformation(this: any) {
                 <form onSubmit={handleSearch} name="searchParameters" id="searchParameters" className={style.request_parameters_form}>
                     <div className={style.block_input}>
                         <label htmlFor="INN">ИНН компании *</label>
-                        <input className={style.INN} type="number" name="INN" id="INN" placeholder="10 цифр" maxLength={10} 
-                            required onChange={event => setInn(event.target.value)}/>
+                        <input className={style.INN} type="number" name="INN" id="INN" placeholder="10 цифр"  
+                            required value={inn} onChange={handleINNChange}/>
                         <label htmlFor="Tonality">Тональность</label>
                         <select className={style.tonality} name="Tonality" id="Tonality">
                             <option value="">Любая</option>
                         </select>
                         <label htmlFor="">Количество документов в выдаче *</label>
                         <input className={style.NumberDocuments} type="number" name="NumberDocuments" id="NumberDocuments"  placeholder="От 1 до 1000" 
-                            minLength={1} maxLength={1000} required onChange={event => setNumberDocuments(event.target.value)}/>
+                            min={1} value={numberDocuments} required onChange={handleNumberDocumentsChange}/>
                         <label htmlFor="">Диапазон поиска *</label>
                         <div className={style.block_date}>
                             <input className={style.StartDate} type="text" name="StartDate" id="StartDate" placeholder="Дата начала" 
@@ -181,8 +217,8 @@ export function SearchCounterpartyInformation(this: any) {
                             </div>
                         </div>
                         <div>
-                            <button className={style.btn_search} 
-                            disabled={!inn || !numberDocuments || !startDate || !endDate} onClick={HandlerSearchQuery}>Поиск</button>
+                            <button type="button" className={style.btn_search} 
+                            disabled={!inn || !numberDocuments || !startDate || !endDate} onClick={SearchQuery}>Поиск</button>
                             <p className={style.pStyle}>* Обязательные к заполнению поля</p>
                         </div>
                     </div>

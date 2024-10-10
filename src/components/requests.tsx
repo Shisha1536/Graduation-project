@@ -57,6 +57,79 @@ export async function HandlerGetAccountInfo (authorized: string | undefined, set
         }
     })
 }
-export async function SearchQuery(body: {}) {
+export async function SearchQuery() {
     
+    let body = {
+        "issueDateInterval": {
+          "startDate": "2019-01-01T00:00:00+03:00",
+          "endDate": "2023-08-31T23:59:59+03:00"
+        },
+        "searchContext": {
+          "targetSearchEntitiesContext": {
+            "targetSearchEntities": [
+              {
+                "type": "company",
+                "sparkId": null,
+                "entityId": null,
+                "inn": 7710137066,
+                "maxFullness": true,
+                "inBusinessNews": null
+              }
+            ],
+            "onlyMainRole": true,
+            "tonality": "any",
+            "onlyWithRiskFactors": false,
+            "riskFactors": {
+              "and": [],
+              "or": [],
+              "not": []
+            },
+            "themes": {
+              "and": [],
+              "or": [],
+              "not": []
+            }
+          },
+          "themesFilter": {
+            "and": [],
+            "or": [],
+            "not": []
+          }
+        },
+        "searchArea": {
+          "includedSources": [],
+          "excludedSources": [],
+          "includedSourceGroups": [],
+          "excludedSourceGroups": []
+        },
+        "attributeFilters": {
+          "excludeTechNews": true,
+          "excludeAnnouncements": true,
+          "excludeDigests": true
+        },
+        "similarMode": "duplicates",
+        "limit": 1000,
+        "sortType": "sourceInfluence",
+        "sortDirectionType": "desc",
+        "intervalType": "month",
+        "histogramTypes": [
+          "totalDocuments",
+          "riskFactors"
+        ]
+    }
+    debugger
+    let token = `Bearer ${localStorage.graduation_project}`
+    await fetch('https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        debugger
+        console.log(data);
+    })
 }
