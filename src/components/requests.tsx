@@ -117,7 +117,6 @@ export async function SearchQuery() {
           "riskFactors"
         ]
     }
-    debugger
     let token = `Bearer ${localStorage.graduation_project}`
     await fetch('https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms', {
         method: 'POST',
@@ -129,7 +128,6 @@ export async function SearchQuery() {
     })
     .then((response) => response.json())
     .then((data) => {
-        debugger
         console.log(data);
     })
 }
