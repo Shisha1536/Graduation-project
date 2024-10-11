@@ -1,74 +1,14 @@
 import { useState } from "react";
 import style from "../../public/css/SearchCounterpartyInformation.module.css";
-import { SearchQuery } from "../../components/requests";
 import Loader from "../../components/loader";
-import { Form } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
-
-type issueDateInterval = {
-    startDate: string,
-    endDate: string
-}
-type targetSearchEntities = {
-    type: string,
-    sparkId: null,
-    entityId: null,
-    inn: number,
-    maxFullness: boolean,
-    inBusinessNews: null
-}
-type riskFactors = {
-    and: [],
-    or: [],
-    not: []
-}
-type targetSearchEntitiesContext = {
-    targetSearchEntities: targetSearchEntities,
-    onlyMainRole: boolean,
-    tonality: string,
-    onlyWithRiskFactors: boolean,
-    riskFactors: riskFactors,
-    themes: riskFactors
-}
-type searchContext = {
-    targetSearchEntitiesContext: targetSearchEntitiesContext,
-    themesFilter: riskFactors   
-}
-type searchArea = {
-    includedSources: [],
-    excludedSources: [],
-    includedSourceGroups: [],
-    excludedSourceGroups: []
-}
-type attributeFilters = {
-    excludeTechNews: boolean,
-    excludeAnnouncements: boolean,
-    excludeDigests: boolean
-}
-
-
-function startDate(value: any) {
-    
-}
-
-function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: string, endDate: string, tonality: string) {
-    
-    
-    let Tonality = document.getElementById('Tonality') as HTMLElement | null;
-    
-    let TheSignMaximumCompleteness = document.getElementById('TheSignMaximumCompleteness') as HTMLInputElement | null;
-    let MentionsBusinessContext = document.getElementById('MentionsBusinessContext') as HTMLInputElement | null;
-    let TheMainRolePublication = document.getElementById('TheMainRolePublication') as HTMLInputElement | null;
-    let PublicationsWithRiskFactorsOnly = document.getElementById('PublicationsWithRiskFactorsOnly') as HTMLInputElement | null;
-    let IncludeTechnicalMarketNews = document.getElementById('IncludeTechnicalMarketNews') as HTMLInputElement | null;
-    let IncludeAnnouncementsCalendars = document.getElementById('IncludeAnnouncementsCalendars') as HTMLInputElement | null;
-    let IncludeNewsBulletins = document.getElementById('IncludeNewsBulletins') as HTMLInputElement | null;
-
+function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: string, endDate: string, theSignMaximumCompleteness: boolean, mentionsBusinessContext: boolean, theMainRolePublication: boolean, publicationsWithRiskFactorsOnly: boolean, includeTechnicalMarketNews: boolean, includeAnnouncementsCalendars: boolean, includeNewsBulletins: boolean, navigate: NavigateFunction) {
 
     let body = {
         issueDateInterval: {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2022-08-31T23:59:59+03:00"
+          "startDate": `${startDate}T00:00:00+03:00`,
+          "endDate": `${endDate}T23:59:59+03:00`
         },
         searchContext: {
           targetSearchEntitiesContext: {
@@ -78,13 +18,13 @@ function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: str
                 sparkId: null,
                 entityId: null,
                 inn: Number(inn),
-                maxFullness: true,
-                inBusinessNews: null
+                maxFullness: theSignMaximumCompleteness,
+                inBusinessNews: mentionsBusinessContext
               }
             ],
-            onlyMainRole: true,
-            tonality: "any",
-            onlyWithRiskFactors: false,
+            onlyMainRole: theMainRolePublication,
+            tonality: 'any',
+            onlyWithRiskFactors: publicationsWithRiskFactorsOnly,
             riskFactors: {
               and: [],
               or: [],
@@ -109,12 +49,12 @@ function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: str
           excludedSourceGroups: []
         },
         attributeFilters: {
-          excludeTechNews: true,
-          excludeAnnouncements: true,
-          excludeDigests: true
+          excludeTechNews: includeTechnicalMarketNews,
+          excludeAnnouncements: includeAnnouncementsCalendars,
+          excludeDigests: includeNewsBulletins
         },
         similarMode: "duplicates",
-        limit: 1000,
+        limit: Number(numberDocuments),
         sortType: "sourceInfluence",
         sortDirectionType: "desc",
         intervalType: "month",
@@ -123,8 +63,7 @@ function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: str
           "riskFactors"
         ]
     }
-
-    SearchQuery()
+    navigate('/searchReport', {state: {body: body}})
 }
 
 export function SearchCounterpartyInformation(this: any) {
@@ -132,7 +71,13 @@ export function SearchCounterpartyInformation(this: any) {
     const [ numberDocuments, setNumberDocuments ] = useState('');
     const [ startDate, setStartDate ] = useState('');
     const [ endDate, setEndDate] = useState('');
-    const [ tonality, setTonality] = useState('Любая');
+    const [ theSignMaximumCompleteness, setTheSignMaximumCompleteness] = useState(false);
+    const [ mentionsBusinessContext, setMentionsBusinessContext ] =useState(false);
+    const [ theMainRolePublication, setTheMainRolePublication ] = useState(false);
+    const [ publicationsWithRiskFactorsOnly, setPublicationsWithRiskFactorsOnly ] = useState(false);
+    const [ includeTechnicalMarketNews, setIncludeTechnicalMarketNews ] = useState(false);
+    const [ includeAnnouncementsCalendars, setIncludeAnnouncementsCalendars ] = useState(false);
+    const [ includeNewsBulletins, setIncludeNewsBulletins ] = useState(false);
 
     const sImg = {
         alignSelf: 'end',
@@ -161,8 +106,15 @@ export function SearchCounterpartyInformation(this: any) {
             setNumberDocuments('1000');
         }
     };
+    const navigate: NavigateFunction = useNavigate();
+    function handleBtn() {
+        HandlerSearchQuery(inn, numberDocuments, startDate, endDate, theSignMaximumCompleteness, mentionsBusinessContext,
+            theMainRolePublication, publicationsWithRiskFactorsOnly, includeTechnicalMarketNews, includeAnnouncementsCalendars,
+            includeNewsBulletins, navigate
+        );
+    }
 
-    HandlerSearchQuery(inn, numberDocuments, startDate, endDate, tonality) 
+
 
     return (
         <main style={block_search}>
@@ -175,14 +127,13 @@ export function SearchCounterpartyInformation(this: any) {
                     <img src={process.env.PUBLIC_URL + '/Document.png'} alt="icon"/>
                     <img src={process.env.PUBLIC_URL + '/Folders.png'} alt="icon" width={140} height={68}/>
                 </div>
-                
                 <form name="searchParameters" id="searchParameters" className={style.request_parameters_form}>
                     <div className={style.block_input}>
                         <label htmlFor="INN">ИНН компании *</label>
                         <input className={style.INN} type="number" name="INN" id="INN" placeholder="10 цифр"  
                             required value={inn} onChange={handleINNChange}/>
                         <label htmlFor="Tonality">Тональность</label>
-                        <select className={style.tonality} name="Tonality" id="Tonality" onChange={ event => setTonality(event.target.value) }>
+                        <select className={style.tonality} name="Tonality" id="Tonality">
                             <option value="Любая">Любая</option>
                         </select>
                         <label htmlFor="">Количество документов в выдаче *</label>
@@ -200,36 +151,43 @@ export function SearchCounterpartyInformation(this: any) {
                         <div className={style.block_checkbox}>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="TheSignMaximumCompleteness">Признак максимальной полноты</label>
-                                <input type="checkbox" name="TheSignMaximumCompleteness" id="TheSignMaximumCompleteness" />
+                                <input type="checkbox" name="TheSignMaximumCompleteness" id="TheSignMaximumCompleteness"  
+                                onChange={event => setTheSignMaximumCompleteness(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="MentionsBusinessContext">Упоминания в бизнес-контексте</label>
-                                <input type="checkbox" name="MentionsBusinessContext" id="MentionsBusinessContext" />
+                                <input type="checkbox" name="MentionsBusinessContext" id="MentionsBusinessContext" 
+                                onChange={event => setMentionsBusinessContext(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="TheMainRolePublication">Главная роль в публикации</label>
-                                <input type="checkbox" name="TheMainRolePublication" id="TheMainRolePublication" />
+                                <input type="checkbox" name="TheMainRolePublication" id="TheMainRolePublication" 
+                                onChange={event => setTheMainRolePublication(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="PublicationsWithRiskFactorsOnly">Публикации только с риск-факторами</label>
-                                <input type="checkbox" name="PublicationsWithRiskFactorsOnly" id="PublicationsWithRiskFactorsOnly" />
+                                <input type="checkbox" name="PublicationsWithRiskFactorsOnly" id="PublicationsWithRiskFactorsOnly" 
+                                onChange={event => setPublicationsWithRiskFactorsOnly(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="IncludeTechnicalMarketNews">Включать технические новости рынков</label>
-                                <input type="checkbox" name="IncludeTechnicalMarketNews" id="IncludeTechnicalMarketNews" />
+                                <input type="checkbox" name="IncludeTechnicalMarketNews" id="IncludeTechnicalMarketNews" 
+                                onChange={event => setIncludeTechnicalMarketNews(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="IncludeAnnouncementsCalendars">Включать анонсы и календари</label>
-                                <input type="checkbox" name="IncludeAnnouncementsCalendars" id="IncludeAnnouncementsCalendars" />
+                                <input type="checkbox" name="IncludeAnnouncementsCalendars" id="IncludeAnnouncementsCalendars" 
+                                onChange={event => setIncludeAnnouncementsCalendars(event.target.checked)}/>
                             </div>
                             <div className={style.block_item_checbox}>
                                 <label htmlFor="IncludeNewsBulletins">Включать сводки новостей</label>
-                                <input type="checkbox" name="IncludeNewsBulletins" id="IncludeNewsBulletins" />
+                                <input type="checkbox" name="IncludeNewsBulletins" id="IncludeNewsBulletins" 
+                                onChange={event => setIncludeNewsBulletins(event.target.checked)}/>
                             </div>
                         </div>
                         <div>
                             <button type="button" className={style.btn_search} 
-                            disabled={!inn || !numberDocuments || !startDate || !endDate} >Поиск</button>
+                            disabled={!inn || !numberDocuments || !startDate || !endDate} onClick={handleBtn}>Поиск</button>
                             <p className={style.pStyle}>* Обязательные к заполнению поля</p>
                         </div>
                     </div>

@@ -57,66 +57,22 @@ export async function HandlerGetAccountInfo (authorized: string | undefined, set
         }
     })
 }
-export async function SearchQuery() {
-    
-    let body = {
-        "issueDateInterval": {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2023-08-31T23:59:59+03:00"
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": 7710137066,
-                "maxFullness": true,
-                "inBusinessNews": null
-              }
-            ],
-            "onlyMainRole": true,
-            "tonality": "any",
-            "onlyWithRiskFactors": false,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
-            },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
-          },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
-        },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
-        },
-        "attributeFilters": {
-          "excludeTechNews": true,
-          "excludeAnnouncements": true,
-          "excludeDigests": true
-        },
-        "similarMode": "duplicates",
-        "limit": 1000,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-    }
+export async function SearchQueryHistograms(body: {
+    issueDateInterval: { startDate: string; endDate: string; }; searchContext: {
+        targetSearchEntitiesContext: {
+            targetSearchEntities: {
+                type: string; sparkId: null; entityId: null; inn: number; maxFullness: boolean; inBusinessNews: boolean;
+            }[]; onlyMainRole: boolean; tonality: string; onlyWithRiskFactors: boolean; riskFactors: { and: never[]; or: never[]; not: never[]; }; themes: { and: never[]; or: never[]; not: never[]; };
+        }; themesFilter: { and: never[]; or: never[]; not: never[]; };
+    }; searchArea: {
+        includedSources: never[]; excludedSources: never[];
+        includedSourceGroups: never[]; excludedSourceGroups: never[];
+    }; attributeFilters: {
+        excludeTechNews: boolean;
+        excludeAnnouncements: boolean; excludeDigests: boolean;
+    }; similarMode: string; limit: number; sortType: string;
+    sortDirectionType: string; intervalType: string; histogramTypes: string[];
+}, setDataHistograms: unknown, setDataObject: unknown) {
     let token = `Bearer ${localStorage.graduation_project}`
     await fetch('https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms', {
         method: 'POST',
@@ -126,8 +82,41 @@ export async function SearchQuery() {
         },
         body: JSON.stringify(body)
     })
-    .then((response) => response.json())
+    .then(async (response) => await response.json())
     .then((data) => {
+      debugger
+        console.log(data);
+		SearchQueryObject(body)
+    })
+}
+async function SearchQueryObject(body: {
+		issueDateInterval: { startDate: string; endDate: string; }; searchContext: {
+			targetSearchEntitiesContext: {
+				targetSearchEntities: {
+					type: string; sparkId: null; entityId: null; inn: number; maxFullness: boolean; inBusinessNews: boolean;
+				}[]; onlyMainRole: boolean; tonality: string; onlyWithRiskFactors: boolean; riskFactors: { and: never[]; or: never[]; not: never[]; }; themes: { and: never[]; or: never[]; not: never[]; };
+			}; themesFilter: { and: never[]; or: never[]; not: never[]; };
+		}; searchArea: {
+			includedSources: never[]; excludedSources: never[];
+			includedSourceGroups: never[]; excludedSourceGroups: never[];
+		}; attributeFilters: {
+			excludeTechNews: boolean;
+			excludeAnnouncements: boolean; excludeDigests: boolean;
+		}; similarMode: string; limit: number; sortType: string; sortDirectionType: string; intervalType: string; histogramTypes: string[];
+	}) {
+
+	    let token = `Bearer ${localStorage.graduation_project}`
+    await fetch('https://gateway.scan-interfax.ru/api/v1/objectsearch', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    })
+    .then(async (response) => await response.json())
+    .then((data) => {
+      debugger
         console.log(data);
     })
 }
