@@ -3,8 +3,12 @@ import style from "../../public/css/SearchCounterpartyInformation.module.css";
 import Loader from "../../components/loader";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: string, endDate: string, theSignMaximumCompleteness: boolean, mentionsBusinessContext: boolean, theMainRolePublication: boolean, publicationsWithRiskFactorsOnly: boolean, includeTechnicalMarketNews: boolean, includeAnnouncementsCalendars: boolean, includeNewsBulletins: boolean, navigate: NavigateFunction) {
-
+function HandlerSearchQuery(inn: string, numberDocuments: string, startDate: string, 
+    endDate: string, theSignMaximumCompleteness: boolean, 
+    mentionsBusinessContext: boolean, theMainRolePublication: boolean, 
+    publicationsWithRiskFactorsOnly: boolean, includeTechnicalMarketNews: boolean, 
+    includeAnnouncementsCalendars: boolean, includeNewsBulletins: boolean, 
+    navigate: NavigateFunction) {
     let body = {
         issueDateInterval: {
           "startDate": `${startDate}T00:00:00+03:00`,
@@ -87,7 +91,6 @@ export function SearchCounterpartyInformation(this: any) {
         display: 'flex',
         justifyContent: 'center'
     }
-
     function handleOnFocus(event: { currentTarget?: any; }) {
         event.currentTarget.type = 'date';
     }
@@ -113,8 +116,6 @@ export function SearchCounterpartyInformation(this: any) {
             includeNewsBulletins, navigate
         );
     }
-
-
 
     return (
         <main style={block_search}>
